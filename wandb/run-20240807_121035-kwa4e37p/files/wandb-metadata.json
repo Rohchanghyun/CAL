@@ -1,0 +1,254 @@
+{
+    "os": "Linux-5.15.0-67-generic-x86_64-with-glibc2.10",
+    "python": "3.8.8",
+    "heartbeatAt": "2024-08-07T12:10:37.064683",
+    "startedAt": "2024-08-07T12:10:35.686560",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--local_rank=0",
+        "--dataset",
+        "ltcc",
+        "--cfg",
+        "configs/res50_cels_cal.yaml",
+        "--gpu",
+        "0,1"
+    ],
+    "state": "running",
+    "program": "main.py",
+    "codePathLocal": "main.py",
+    "codePath": "main.py",
+    "host": "1370261e6f55",
+    "username": "root",
+    "executable": "/opt/conda/bin/python",
+    "cpu_count": 20,
+    "cpu_count_logical": 40,
+    "cpu_freq": {
+        "current": 1108.0646499999998,
+        "min": 1000.0,
+        "max": 3200.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 1000.205,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.536,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.047,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 3000.422,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.302,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.298,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.588,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.53,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.517,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.381,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.209,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.075,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 999.154,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1795.435,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.241,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.076,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.089,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1116.667,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.818,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.546,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.969,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.366,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.728,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 3096.204,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.815,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.23,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.119,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.437,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.345,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.684,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.294,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.198,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.0,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1617.959,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.672,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.726,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.082,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1106.564,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.059,
+            "min": 1000.0,
+            "max": 3200.0
+        },
+        {
+            "current": 1000.63,
+            "min": 1000.0,
+            "max": 3200.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 937.3305015563965,
+            "used": 511.22404861450195
+        }
+    },
+    "gpu": "NVIDIA TITAN RTX",
+    "gpu_count": 2,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA TITAN RTX",
+            "memory_total": 25769803776
+        },
+        {
+            "name": "NVIDIA GeForce RTX 3090",
+            "memory_total": 25769803776
+        }
+    ],
+    "memory": {
+        "total": 251.5177116394043
+    }
+}
