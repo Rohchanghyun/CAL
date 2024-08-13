@@ -1,1 +1,0 @@
-{"epoch": 1, "batch": 104, "classification_loss": 2.753419876098633, "pair_loss": 0.6932392120361328, "clothes_loss": 5.587611198425293, "adversarial_loss": 5.560369491577148, "accuracy": 0.2626488208770752, "clothes_accuracy": 0.0019345239270478487, "_timestamp": 1723034462.3893762, "_runtime": 67.7149031162262, "_step": 104}

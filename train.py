@@ -27,9 +27,16 @@ def train_cal(config, epoch, model, classifier, clothes_classifier, criterion_cl
     wandb.init(entity = "ggara376",project="CC-reid", name="CAL")
     end = time.time()
     
+    current_device = torch.cuda.current_device()
+    print(f"현재 학습 중인 GPU ID: {current_device}")
+
+# 현재 사용 중인 GPU의 이름을 확인
+    device_name = torch.cuda.get_device_name(current_device)
+    print(f"현재 학습 중인 GPU 이름: {device_name}")
     pbar = tqdm(enumerate(trainloader), total=len(trainloader), desc=f"Epoch {epoch+1}")
     for batch_idx, (imgs, pids, camids, clothes_ids) in pbar:
         # Get all positive clothes classes (belonging to the same identity) for each sample
+        pid2clothes = pid2clothes.cuda()
         pos_mask = pid2clothes[pids]
         imgs, pids, clothes_ids, pos_mask = imgs.cuda(), pids.cuda(), clothes_ids.cuda(), pos_mask.float().cuda()
         # Measure data loading time

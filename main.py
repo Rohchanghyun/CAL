@@ -23,10 +23,7 @@ from tools.utils import save_checkpoint, set_seed, get_logger
 from train import train_cal, train_cal_with_memory
 from test import test, test_prcc
 
-os.environ["CUDA_VISIBLE_DEVICES"]= "1"
-
 VID_DATASET = ['ccvid']
-
 
 def parse_option():
     parser = argparse.ArgumentParser(description='Train clothes-changing re-id model with clothes-based adversarial loss')
@@ -40,7 +37,7 @@ def parse_option():
     parser.add_argument('--amp', action='store_true', help="automatic mixed precision")
     parser.add_argument('--eval', action='store_true', help="evaluation only")
     parser.add_argument('--tag', type=str, help='tag for log file')
-    parser.add_argument('--gpu', default='0', type=str, help='gpu device ids for CUDA_VISIBLE_DEVICES')
+    parser.add_argument('--gpu', default='1', type=str, help='gpu device ids for CUDA_VISIBLE_DEVICES')
 
     args, unparsed = parser.parse_known_args()
     if args.dataset in VID_DATASET:
@@ -52,6 +49,8 @@ def parse_option():
 
 
 def main(config):
+    
+    os.environ['CUDA_VISIBLE_DEVICES'] = config.GPU
     # Build dataloader
     if config.DATA.DATASET == 'prcc':
         trainloader, queryloader_same, queryloader_diff, galleryloader, dataset, train_sampler = build_dataloader(config)

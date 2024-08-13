@@ -9,7 +9,7 @@ _C = CN()
 # -----------------------------------------------------------------------------
 _C.DATA = CN()
 # Root path for dataset directory
-_C.DATA.ROOT = '/workspace/dataset'
+_C.DATA.ROOT = '/workspace/mnt/dataset'
 # Dataset for evaluation
 _C.DATA.DATASET = 'ltcc'
 # Workers for dataloader
