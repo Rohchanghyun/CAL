@@ -9,7 +9,8 @@ _C = CN()
 # -----------------------------------------------------------------------------
 _C.DATA = CN()
 # Root path for dataset directory
-_C.DATA.ROOT = '/workspace/mnt/dataset'
+_C.DATA.ROOT = '/workspace/dataset'
+#_C.DATA.ROOT = '/workspace/mnt/dataset'
 # Dataset for evaluation
 _C.DATA.DATASET = 'ltcc'
 # Workers for dataloader
@@ -73,7 +74,7 @@ _C.LOSS.PAIR_S = 16.
 # Margin for pairwise loss
 _C.LOSS.PAIR_M = 0.3
 # Clothes-based adversarial loss
-_C.LOSS.CAL = 'cal'
+_C.LOSS.CAL = 'base'
 # Epsilon for clothes-based adversarial loss
 _C.LOSS.EPSILON = 0.1
 # Momentum for clothes-based adversarial loss with memory bank
@@ -118,11 +119,11 @@ _C.SEED = 1
 # Perform evaluation only
 _C.EVAL_MODE = False
 # GPU device ids for CUDA_VISIBLE_DEVICES
-_C.GPU = '1'
+_C.GPU = '0,1'
 # Path to output folder, overwritten by command line argument
 _C.OUTPUT = '/workspace/Simple-CCReID/results'
 # Tag of experiment, overwritten by command line argument
-_C.TAG = 'res50-ce-cal'
+_C.TAG = 'res50-ce-base'
 
 
 def update_config(config, args):

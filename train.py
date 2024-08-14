@@ -198,3 +198,96 @@ def train_cal_with_memory(config, epoch, model, classifier, criterion_cla, crite
                 epoch+1, batch_time=batch_time, data_time=data_time, 
                 cla_loss=batch_cla_loss, pair_loss=batch_pair_loss, 
                 adv_loss=batch_adv_loss, acc=corrects))
+    
+    
+    
+def train_base(config, epoch, model, classifier, clothes_classifier, criterion_cla, criterion_pair, 
+    criterion_clothes, criterion_adv, optimizer, optimizer_cc, trainloader, pid2clothes):
+    logger = logging.getLogger('reid.train')
+    batch_cla_loss = AverageMeter()
+    batch_pair_loss = AverageMeter()
+    batch_clo_loss = AverageMeter()
+    batch_adv_loss = AverageMeter()
+    corrects = AverageMeter()
+    clothes_corrects = AverageMeter()
+    batch_time = AverageMeter()
+    data_time = AverageMeter()
+
+    model.train()
+    classifier.train()
+    clothes_classifier.train()
+    wandb.init(entity = "ggara376",project="CC-reid", name="CAL")
+    end = time.time()
+    
+    current_device = torch.cuda.current_device()
+    print(f"현재 학습 중인 GPU ID: {current_device}")
+
+# 현재 사용 중인 GPU의 이름을 확인
+    device_name = torch.cuda.get_device_name(current_device)
+    print(f"현재 학습 중인 GPU 이름: {device_name}")
+    pbar = tqdm(enumerate(trainloader), total=len(trainloader), desc=f"Epoch {epoch+1}")
+    for batch_idx, (imgs, pids, camids, clothes_ids) in pbar:
+        # Get all positive clothes classes (belonging to the same identity) for each sample
+        pid2clothes = pid2clothes.cuda()
+        pos_mask = pid2clothes[pids]
+        imgs, pids, clothes_ids, pos_mask = imgs.cuda(), pids.cuda(), clothes_ids.cuda(), pos_mask.float().cuda()
+        # Measure data loading time
+        data_time.update(time.time() - end)
+        # Forward
+        features = model(imgs)
+        outputs = classifier(features)
+        pred_clothes = clothes_classifier(features.detach())
+        _, preds = torch.max(outputs.data, 1)
+
+
+        # Compute loss
+        cla_loss = criterion_cla(outputs, pids)
+        pair_loss = criterion_pair(features, pids)
+        loss = cla_loss + config.LOSS.PAIR_LOSS_WEIGHT * pair_loss   
+        optimizer.zero_grad()
+        if config.TRAIN.AMP:
+            with amp.scale_loss(loss, optimizer) as scaled_loss:
+                scaled_loss.backward()
+        else:
+            loss.backward()
+        optimizer.step()
+
+        # statistics
+        corrects.update(torch.sum(preds == pids.data).float()/pids.size(0), pids.size(0))
+        batch_cla_loss.update(cla_loss.item(), pids.size(0))
+        batch_pair_loss.update(pair_loss.item(), pids.size(0))
+        # measure elapsed time
+        batch_time.update(time.time() - end)
+        end = time.time()
+                # Wandb 로깅
+        wandb.log({
+            "epoch": epoch + 1,
+            "batch": batch_idx,
+            "classification_loss": cla_loss.item(),
+            "pair_loss": pair_loss.item(),
+            "accuracy": corrects.avg,
+        })
+
+        # tqdm 프로그레스 바 업데이트
+        pbar.set_postfix({
+            'ClaLoss': f"{batch_cla_loss.avg:.4f}",
+            'PairLoss': f"{batch_pair_loss.avg:.4f}",
+            'Acc': f"{corrects.avg:.2%}"
+        })
+
+    wandb.log({
+        "epoch": epoch + 1,
+        "epoch_classification_loss": batch_cla_loss.avg,
+        "epoch_pair_loss": batch_pair_loss.avg,
+        "epoch_accuracy": corrects.avg
+    })
+    
+    logger.info('Epoch{0} '
+                  'Time:{batch_time.sum:.1f}s '
+                  'Data:{data_time.sum:.1f}s '
+                  'ClaLoss:{cla_loss.avg:.4f} '
+                  'PairLoss:{pair_loss.avg:.4f} '
+                  'Acc:{acc.avg:.2%} '.format(
+                   epoch+1, batch_time=batch_time, data_time=data_time, 
+                   cla_loss=batch_cla_loss, pair_loss=batch_pair_loss,  
+                   acc=corrects))

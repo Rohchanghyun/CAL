@@ -20,7 +20,7 @@ from data import build_dataloader
 from models import build_model
 from losses import build_losses
 from tools.utils import save_checkpoint, set_seed, get_logger
-from train import train_cal, train_cal_with_memory
+from train import train_cal, train_cal_with_memory, train_base
 from test import test, test_prcc
 
 VID_DATASET = ['ccvid']
@@ -37,7 +37,7 @@ def parse_option():
     parser.add_argument('--amp', action='store_true', help="automatic mixed precision")
     parser.add_argument('--eval', action='store_true', help="evaluation only")
     parser.add_argument('--tag', type=str, help='tag for log file')
-    parser.add_argument('--gpu', default='1', type=str, help='gpu device ids for CUDA_VISIBLE_DEVICES')
+    parser.add_argument('--gpu', default='0', type=str, help='gpu device ids for CUDA_VISIBLE_DEVICES')
 
     args, unparsed = parser.parse_known_args()
     if args.dataset in VID_DATASET:
@@ -138,6 +138,9 @@ def main(config):
         if config.LOSS.CAL == 'calwithmemory':
             train_cal_with_memory(config, epoch, model, classifier, criterion_cla, criterion_pair, 
                 criterion_adv, optimizer, trainloader, pid2clothes)
+        elif config.LOSS.CAL == 'base':
+            train_base(config, epoch, model, classifier, clothes_classifier, criterion_cla, criterion_pair, 
+                criterion_clothes, criterion_adv, optimizer, optimizer_cc, trainloader, pid2clothes)
         else:
             train_cal(config, epoch, model, classifier, clothes_classifier, criterion_cla, criterion_pair, 
                 criterion_clothes, criterion_adv, optimizer, optimizer_cc, trainloader, pid2clothes)

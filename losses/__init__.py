@@ -46,6 +46,8 @@ def build_losses(config, num_train_clothes):
     # Build clothes-based adversarial loss
     if config.LOSS.CAL == 'cal':
         criterion_cal = ClothesBasedAdversarialLoss(scale=config.LOSS.CLA_S, epsilon=config.LOSS.EPSILON)
+    elif config.LOSS.CAL == 'base':
+        criterion_cal = ClothesBasedAdversarialLoss(scale=config.LOSS.CLA_S, epsilon=config.LOSS.EPSILON)
     elif config.LOSS.CAL == 'calwithmemory':
         criterion_cal = ClothesBasedAdversarialLossWithMemoryBank(num_clothes=num_train_clothes, feat_dim=config.MODEL.FEATURE_DIM,
                              momentum=config.LOSS.MOMENTUM, scale=config.LOSS.CLA_S, epsilon=config.LOSS.EPSILON)
